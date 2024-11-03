@@ -1,0 +1,17 @@
+{% extends 'nav.html' %} {% block title %} Subscription {% endblock %} {% block
+content %}
+<div class="container mt-5">
+  <h2>Subscribe to Our Newsletter</h2>
+  <form method="POST" action="{{ url_for('subscribe') }}">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+      {{ form.email.label(class="form-label") }} {{
+      form.email(class="form-control") }} {% for error in form.email.errors %}
+      <div class="alert alert-danger">{{ error }}</div>
+      {% endfor %}
+    </div>
+    <br />
+    <div class="form-group">{{ form.submit(class="btn btn-primary") }}</div>
+  </form>
+</div>
+{% endblock %}

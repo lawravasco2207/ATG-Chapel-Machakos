@@ -1,0 +1,83 @@
+/* * {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: black;
+    color: white;
+}
+
+.tabs a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}
+
+nav {
+    display: flex;
+    background-color:  dimgray;
+    display: flex;
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* justify-content: space-between; */
+    /* padding: 10px; */
+/* } */ 
+
+/* .signup {
+    max-width: 850px;
+    width: 600px;
+    height: 650px;
+    background-color: black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 12px;
+    border-radius: 10px;
+} */
+/* 
+.inputs {
+    margin: 20px;
+    line-height: 0.6;
+}
+
+.input {
+    background-color: transparent; 
+    border: 1px;
+}
+
+.input:focus {
+    background-color: transparent;
+    font-size: 17px;
+    margin: .5px;
+    border-radius: 4px;
+    padding: 1.5px;
+} 
+
+.submit {
+    background-color: lightsalmon;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px; */
+/* } */
+
+/* .submit:hover {
+    padding: 10px;
+    border: rgb(salmon, brown, blue);
+}  */
+
+/* .dashboard {
+    line-height: 2;
+} */
+
+/* .dashboard #upload {
+    text-decoration: none;
+    background-color: royalblue;
+    color: white;
+    border-radius: 3px;
+    margin-left: 10px;
+    font-size: 22px;
+    padding: 4px;
+} */

@@ -1,0 +1,77 @@
+{% extends 'nav.html' %}
+
+{% block title %} ATG Chapel Machakos | Bible {% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Select a Chapter or Verse Range to Read</h1>
+    <form method="post" class="row">
+      <div class="col-md-6 mb-3">
+        <label for="book">Select Book:</label>
+        <select id="book" name="book" class="form-select" onchange="getChapters()">
+          <option value="">--Select Book--</option>
+          {% for book in books %}
+            <option value="{{ book.id }}">{{ book.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="chapter">Select Chapter:</label>
+        <select id="chapter" name="chapter" class="form-select" onchange="getVerses()">
+          <option value="">--Select Chapter--</option>
+        </select>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="start_verse">Select Start Verse:</label>
+        <select id="start_verse" name="start_verse" class="form-select">
+          <option value="">--Start Verse--</option>
+        </select>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="end_verse">Select End Verse:</label>
+        <select id="end_verse" name="end_verse" class="form-select" disabled>
+          <option value="" disabled>--End Verse--</option>
+        </select>
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Read Selection</button>
+      </div>
+    </form>
+  
+    <h2>Content:</h2>
+    <p>{{ selected_text|safe }}</p>
+  </div>
+
+<script>
+    async function getChapters() {
+        const bookId = document.getElementById('book').value;
+        const response = await fetch(`/chapters/${bookId}`);
+        const chapters = await response.json();
+        const chapterSelect = document.getElementById('chapter');
+        chapterSelect.innerHTML = '<option value="">--Select Chapter--</option>';
+        chapters.forEach(chapter => {
+            const option = document.createElement('option');
+            option.value = chapter.id;
+            option.textContent = chapter.reference;
+            chapterSelect.appendChild(option);
+        });
+    }
+
+    async function getVerses() {
+        const chapterId = document.getElementById('chapter').value;
+        const response = await fetch(`/verses/${chapterId}`);
+        const verses = await response.json();
+        const startVerseSelect = document.getElementById('start_verse');
+        const endVerseSelect = document.getElementById('end_verse');
+        startVerseSelect.innerHTML = '<option value="">--Start Verse--</option>';
+        endVerseSelect.innerHTML = '<option value="">--End Verse--</option>';
+        verses.forEach(verse => {
+            const option = document.createElement('option');
+            option.value = verse.id;
+            option.textContent = verse.reference;
+            startVerseSelect.appendChild(option);
+            endVerseSelect.appendChild(option.cloneNode(true));  // Clone to use in both selects
+        });
+    }
+</script>
+{% endblock %}

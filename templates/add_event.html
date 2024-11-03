@@ -1,0 +1,44 @@
+<!-- add_event.html -->
+{% extends 'nav.html' %} {% block title %}Add Event{% endblock %} {% block
+content %}
+<div class="container mt-5">
+  <h2>Create an Event</h2>
+  <form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+      {{ form.title.label(class="form-label") }} {{
+      form.title(class="form-control") }} {% for error in form.title.errors %}
+      <div class="alert alert-danger">{{ error }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="mb-3">
+      {{ form.description.label(class="form-label") }} {{
+      form.description(class="form-control") }} {% for error in
+      form.description.errors %}
+      <div class="alert alert-danger">{{ error }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="mb-3">
+      {{ form.image.label(class="form-label") }} {{ form.image() }} {% for error
+      in form.image.errors %}
+      <div class="alert alert-danger">{{ error }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="mb-3">
+      {{ form.validity_duration.label(class="form-label") }} {{
+      form.validity_duration(class="form-control") }} {% for error in
+      form.validity_duration.errors %}
+      <div class="alert alert-danger">{{ error }}</div>
+      {% endfor %}
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+      {{ form.submit.label }}
+    </button>
+  </form>
+</div>
+{% endblock %}

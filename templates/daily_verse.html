@@ -1,0 +1,22 @@
+{% extends 'nav.html' %}
+
+{% block title %} Daily Verse {% endblock %}
+
+{% block content %}
+    <h1>Daily Verse</h1>
+
+    {% if verse_content %}
+        <p>{{ verse_content }}</p>
+        <p><i>{{ book }} {{ chapter }}:{{ verse }}</i></p>
+    {% else %}
+        <p>No verse available for today.</p>
+    {% endif %}
+
+    {% if edit_enabled %}
+        <form method="POST" action="">
+            {{ edit_form.csrf_token }}
+            {{ edit_form.verse_content }}
+            {{ edit_form.submit }}
+        </form>
+    {% endif %}
+{% endblock %}

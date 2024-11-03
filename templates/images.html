@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <title>Facebook Images</title>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1>Images from Facebook Page</h1>
+      <div class="row">
+        {% for image in images %}
+        <div class="col-md-4 mb-4">
+          <img src="{{ image }}" class="img-fluid" alt="Facebook Image" />
+        </div>
+        {% endfor %}
+      </div>
+      {% if not images %}
+      <div class="alert alert-warning" role="alert">
+        No images found or there was an error fetching images.
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>

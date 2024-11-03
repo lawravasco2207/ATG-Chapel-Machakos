@@ -1,0 +1,88 @@
+{% extends 'nav.html' %} {% block title %}ATG Deliverance Chapel Machakos{%
+endblock %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="hero-section">
+        <img
+          src="{{ url_for('static', filename='uploads/BeautyPlus_20230628204752782_save.jpg') }}"
+          alt="Hero Image"
+          width="190px"
+          height="150px"
+        />
+        <div class="hero-content">
+          <h1 class="display-4 text-white">
+            Welcome to ATG Deliverance Chapel Machakos
+          </h1>
+          <p class="lead text-white">Where Divinity Meets Humanity.</p>
+          <a href="{{ url_for('subscribe') }}" class="btn btn-lg btn-primary"
+            >Join Us</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <h2 class="text-primary">Sermon Series</h2>
+      <p>Discover the latest teachings from our pastors.</p>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <strong>Youtube Channel</strong>
+          <p>Get more from our YouTube Channel. Don't forget to subscribe.</p>
+          <a
+            href="https://youtube.com/@bishoplazarus?si=bGW7iM6meCg8T0vY"
+            class="btn btn-sm btn-primary"
+            >Watch Now</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-md-6">
+      <h2 class="text-success">Upcoming Events</h2>
+      <ul class="list-group">
+        {% if events %} {% for event in events %}
+        <li class="list-group-item">
+          <strong>{{ event[0] }}</strong>
+          <p>{{ event[1] }}</p>
+          <p>Date and Time: {{ event[3] }}</p>
+          <img
+            src="{{ url_for('static', filename='uploads/' + event[2]) }}"
+            alt="{{ event[0] }}"
+            style="width: 100%; height: auto"
+          />
+        </li>
+        {% endfor %} {% else %}
+        <li class="list-group-item">No upcoming events at the moment.</li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12 text-center">
+      <h2 class="text-danger">About Us</h2>
+      <p>
+        ATG Chapel is a loving community dedicated to spreading the Gospel of
+        Jesus Christ. We believe in the power of God's Word to transform lives.
+      </p>
+      <a href="{{ url_for('about') }}" class="btn btn-primary">Learn More</a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .hero-section {
+    background-color: #007bff; /* Adjust background color as needed */
+    color: #fff;
+    padding: 150px 0;
+    text-align: center;
+  }
+
+  .hero-content {
+    margin-top: 50px;
+  }
+</style>
+{% endblock %}
