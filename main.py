@@ -718,6 +718,11 @@ def inject_daily_verse():
 @app.route('/add_event', methods=['GET', 'POST'])
 @login_required
 def add_event():
+    # Check if the current user's email is the allowed email
+    if current_user.email != "lawravasco@gmail.com":
+        flash("You do not have permission to add an event.", "danger")
+        return redirect(url_for('dashboard'))
+
     form = EventForm()
     if form.validate_on_submit():
         title = form.title.data
@@ -725,32 +730,31 @@ def add_event():
         image = form.image.data
         validity_duration = form.validity_duration.data
 
-        # Check if the file is in the allowed format
-        if image and allowed_file(image.filename):
+        # Save the image file
+        if image:
             filename = secure_filename(image.filename)
             image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-
-            # Save the image
             image.save(image_path)
 
-            # Insert the event into the database
-            conn = get_db_connection()
-            cur = conn.cursor()
-            cur.execute(
-                "INSERT INTO events (user_id, title, description, image_path, expiration_time) VALUES (%s, %s, %s, %s, NOW() + INTERVAL %s DAY)",
-                (current_user.id, title, description, image_path, validity_duration)
-            )
-            conn.commit()
-            cur.close()
-            conn.close()
+        # Calculate the expiration time
+        expiration_time = datetime.utcnow() + timedelta(hours=validity_duration)
 
-            flash('Event added successfully!', 'success')
-            return redirect(url_for('index'))
+        # Insert the event into the database
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute(
+            "INSERT INTO events (user_id, title, description, image_path, expiration_time) VALUES (%s, %s, %s, %s, %s)",
+            (current_user.id, title, description, image_path, expiration_time)
+        )
+        conn.commit()
+        cur.close()
+        conn.close()
 
-        else:
-            flash('Invalid image format. Please upload a .png, .jpg, .jpeg, or .gif file.', 'danger')
+        flash('Event added successfully!', 'success')
+        return redirect(url_for('dashboard'))
 
     return render_template('add_event.html', form=form)
+
 
 
 @app.route('/logout')
